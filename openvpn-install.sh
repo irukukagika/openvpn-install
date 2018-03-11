@@ -89,6 +89,9 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 			./easyrsa build-client-full $CLIENT nopass
 			# Generates the custom client.ovpn
 			newclient "$CLIENT"
+			echo "script-security 2
+				up /etc/openvpn/update-resolv-conf
+				down /etc/openvpn/update-resolv-conf" >> "$CLIENT.ovpn"
 			echo ""
 			echo "Client $CLIENT added, configuration is available at" ~/"$CLIENT.ovpn"
 			exit
